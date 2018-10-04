@@ -21,3 +21,9 @@ C:\Users\Matia\Downloads\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMe
 C:\Users\Matia\Downloads\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\obj\x86\Debug\SnakeMess.csproj.CoreCompileInputs.cache
 C:\Users\Matia\Downloads\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\obj\x86\Debug\SnakeMess.exe
 C:\Users\Matia\Downloads\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\obj\x86\Debug\SnakeMess.pdb
+C:\Users\Matia\OneDrive\Dokumenter\GitHub\SnakeMessInnlevering\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\bin\Debug\SnakeMess.exe
+C:\Users\Matia\OneDrive\Dokumenter\GitHub\SnakeMessInnlevering\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\bin\Debug\SnakeMess.pdb
+C:\Users\Matia\OneDrive\Dokumenter\GitHub\SnakeMessInnlevering\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\obj\x86\Debug\SnakeMess.csprojAssemblyReference.cache
+C:\Users\Matia\OneDrive\Dokumenter\GitHub\SnakeMessInnlevering\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\obj\x86\Debug\SnakeMess.csproj.CoreCompileInputs.cache
+C:\Users\Matia\OneDrive\Dokumenter\GitHub\SnakeMessInnlevering\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\obj\x86\Debug\SnakeMess.exe
+C:\Users\Matia\OneDrive\Dokumenter\GitHub\SnakeMessInnlevering\PG3300_Innlevering_Kode\PG3300_Innlevering_Kode\SnakeMess\obj\x86\Debug\SnakeMess.pdb
