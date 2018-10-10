@@ -5,13 +5,19 @@ using System.Text;
 
 namespace SnakeMess
 {
-    class GameManager
-    {
-        public static void PlaceApple(int boardW, int boardH, Random rng, Point app, List<Point> snake)
+    class GameManager { 
+        public Random rng { get; set; }
+        public GameManager()
+        {
+            rng = new Random();
+            
+        }
+    
+        public void PlaceApple(int boardW, int boardH,Point app, List<Point> snake)
         {
             while (true)
             {
-                app.X = rng.Next(0, boardW); app.Y = rng.Next(0, boardH);
+                app.X = rng.Next(0,boardH); app.Y = rng.Next(0, boardH);
                 bool spot = true;//if the randomspot is same as the position of apple then break
                 foreach (Point i in snake)
                     if (i.X == app.X && i.Y == app.Y)
@@ -26,7 +32,7 @@ namespace SnakeMess
                 }
             }
         }
-        public static void DetectCollision(ref bool gg, ref bool inUse, int boardW, int boardH, Random rng, Point app, List<Point> snake, Point newH)
+        public void DetectCollision(ref bool gg, ref bool inUse, int boardW,int boardH, Random rng, Point app, List<Point> snake, Point newH)
         {
             if (newH.X < 0 || newH.X >= boardW)
                 gg = true;
@@ -58,7 +64,7 @@ namespace SnakeMess
                 }
             }
         }
-        public static void NewMethod1(bool gg, ref bool inUse, short newDir, ref short last, Point app, List<Point> snake, Point tail, Point head, Point newH)
+        public void gameUpdate(bool gg, ref bool inUse, short newDir, ref short last, Point app, List<Point> snake, Point tail, Point head, Point newH)
         {
             if (!gg)
             {

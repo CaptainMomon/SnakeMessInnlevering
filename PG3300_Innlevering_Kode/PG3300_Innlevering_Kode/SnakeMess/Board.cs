@@ -5,14 +5,24 @@ using System.Text;
 
 namespace SnakeMess
 {
-    class Board
-    {
+    class Board {
+        public List<Point> snake { get; set; }
+        public int boardW { get; set; }
+        public int boardH { get; set; }
 
 
-        public static List<Point> newBoard()
+
+        public Board()
         {
+            snake = new List<Point>();
+            boardW = Console.WindowWidth; 
+            boardH = Console.WindowHeight;
+        }
+           
 
-            List<Point> snake = new List<Point>();
+
+        public List<Point> CreateSnake()
+        {            
             //add four bodyparts initially to the apple
             snake.Add(new Point(10, 10)); snake.Add(new Point(10, 10)); snake.Add(new Point(10, 10)); snake.Add(new Point(10, 10));
             Console.CursorVisible = false;

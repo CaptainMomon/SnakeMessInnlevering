@@ -9,8 +9,9 @@ namespace SnakeMess
     class Player
     {
         Stopwatch t = new Stopwatch();
+        GameManager game = new GameManager();
         
-        public static void StateOfGame(ref bool gg, ref bool pause, ref bool inUse, ref short newDir, ref short last, int boardW, int boardH, Random rng, Point app, List<Point> snake, Stopwatch t)
+        public void StateOfGame(ref bool gg, ref bool pause, ref bool inUse, ref short newDir, ref short last, int boardW, int boardH, Random rng, Point app, List<Point> snake, Stopwatch t)
         {
             while (!gg)
             {//if gameIsNotOver
@@ -47,7 +48,7 @@ namespace SnakeMess
 
                     //(Check if the snake meets the apple, boundary or itself)
                     //Detect when the snake hits the boundary
-                    GameManager.DetectCollision(ref gg, ref inUse, boardW, boardH, rng, app, snake, newH);
+                    game.DetectCollision(ref gg, ref inUse, boardW, boardH, rng, app, snake, newH);
                     if (!inUse)
                     {
                         snake.RemoveAt(0);
@@ -59,11 +60,11 @@ namespace SnakeMess
                                 break;
                             }
                     }
-                    GameManager.NewMethod1(gg, ref inUse, newDir, ref last, app, snake, tail, head, newH);
+                    game.gameUpdate(gg, ref inUse, newDir, ref last, app, snake, tail, head, newH);
                 }
             }
         }
-        public static void GetDirection(short newDir, Point newH)
+        public void GetDirection(short newDir, Point newH)
         {
             switch (newDir)
             {
