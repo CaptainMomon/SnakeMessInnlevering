@@ -7,6 +7,9 @@ namespace SnakeMess
 {
     class GameManager { 
         public Random rng { get; set; }
+
+        
+        
         public GameManager()
         {
             rng = new Random();
@@ -32,17 +35,17 @@ namespace SnakeMess
                 }
             }
         }
-        public void DetectCollision(ref bool gg, ref bool inUse, int boardW,int boardH, Random rng, Point app, List<Point> snake, Point newH)
+        public void DetectCollision( ref bool inUse, int boardW,int boardH, Random rng, Point app, List<Point> snake, Point newH)
         {
             if (newH.X < 0 || newH.X >= boardW)
-                gg = true;
+                GameOver();
             else if (newH.Y < 0 || newH.Y >= boardH)
-                gg = true;
+                GameOver();
             if (newH.X == app.X && newH.Y == app.Y)
             {
                 if (snake.Count + 1 >= boardW * boardH)
                     // No more room to place apples - game over.
-                    gg = true;
+                    GameOver();
                 else
                 {//check if apple is eaten
                     while (true)
@@ -64,9 +67,20 @@ namespace SnakeMess
                 }
             }
         }
-        public void gameUpdate(bool gg, ref bool inUse, short newDir, ref short last, Point app, List<Point> snake, Point tail, Point head, Point newH)
+        
+        public void GameOver()
         {
-            if (!gg)
+            Environment.Exit(0);
+        }
+
+        public Boolean PauseGame()
+        {
+            return false;
+        }
+
+        public void gameUpdate(ref bool inUse, short newDir, ref short last, Point app, List<Point> snake, Point tail, Point head, Point newH)
+        {
+            if (true)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.SetCursorPosition(head.X, head.Y); Console.Write("0");

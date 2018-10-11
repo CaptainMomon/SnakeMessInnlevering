@@ -11,15 +11,15 @@ namespace SnakeMess
         Stopwatch t = new Stopwatch();
         GameManager game = new GameManager();
         
-        public void StateOfGame(ref bool gg, ref bool pause, ref bool inUse, ref short newDir, ref short last, int boardW, int boardH, Random rng, Point app, List<Point> snake, Stopwatch t)
+        public void StateOfGame( ref bool pause, ref bool inUse, ref short newDir, ref short last, int boardW, int boardH, Random rng, Point app, List<Point> snake, Stopwatch t)
         {
-            while (!gg)
+            while (true)
             {//if gameIsNotOver
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo cki = Console.ReadKey(true);
                     if (cki.Key == ConsoleKey.Escape)
-                        gg = true;//gameover
+                        game.GameOver();
                     else if (cki.Key == ConsoleKey.Spacebar)
                         pause = !pause;
                     //(Get the direction)
@@ -48,7 +48,7 @@ namespace SnakeMess
 
                     //(Check if the snake meets the apple, boundary or itself)
                     //Detect when the snake hits the boundary
-                    game.DetectCollision(ref gg, ref inUse, boardW, boardH, rng, app, snake, newH);
+                    game.DetectCollision( ref inUse, boardW, boardH, rng, app, snake, newH);
                     if (!inUse)
                     {
                         snake.RemoveAt(0);
@@ -56,14 +56,17 @@ namespace SnakeMess
                             if (x.X == newH.X && x.Y == newH.Y)
                             {
                                 // Death by accidental self-cannibalism.
-                                gg = true;
+                                game.GameOver();
                                 break;
                             }
                     }
-                    game.gameUpdate(gg, ref inUse, newDir, ref last, app, snake, tail, head, newH);
+                    game.gameUpdate( ref inUse, newDir, ref last, app, snake, tail, head, newH);
                 }
             }
         }
+        
+       
+
         public void GetDirection(short newDir, Point newH)
         {
             switch (newDir)

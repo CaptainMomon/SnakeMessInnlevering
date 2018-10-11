@@ -24,7 +24,7 @@ namespace SnakeMess
             Board board = new Board();
             GameManager gameManager = new GameManager();
 
-            bool gg = false; //gameover 
+            //bool gg = false; //gameover 
             bool pause = false;//gamepause
             bool inUse = false;///eatingApple
             short newDir = 2; // 0 = up, 1 = right, 2 = down, 3 = left //new direction of the snake
@@ -48,7 +48,7 @@ namespace SnakeMess
             //(Get the state of the snake
             Stopwatch t = new Stopwatch();
             t.Start();
-            player.StateOfGame(ref gg, ref pause, ref inUse, ref newDir, ref last, board.boardW, board.boardH, gameManager.rng, app, board.snake, t);
+            player.StateOfGame( ref pause, ref inUse, ref newDir, ref last, board.boardW, board.boardH, gameManager.rng, app, board.snake, t);
         }
     }
 }
