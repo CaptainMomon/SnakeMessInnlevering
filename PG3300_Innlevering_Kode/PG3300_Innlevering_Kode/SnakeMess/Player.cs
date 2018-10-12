@@ -10,9 +10,16 @@ namespace SnakeMess
     {
         Stopwatch t = new Stopwatch();
         GameManager game = new GameManager();
+        bool pause = false;
+        int newDir = 2;
+        int last;
+
         
-        public void StateOfGame( ref bool pause, ref bool inUse, ref short newDir, ref short last, int boardW, int boardH, Random rng, Point app, List<Point> snake, Stopwatch t)
+
+        public void StateOfGame(int boardW, int boardH, Random rng, Point app, List<Point> snake)
         {
+            t.Start();
+            last = newDir;
             while (true)
             {//if gameIsNotOver
                 if (Console.KeyAvailable)
@@ -44,30 +51,22 @@ namespace SnakeMess
                     Point newH = new Point(head);
 
                     //(move snake)
-                    GetDirection(newDir, newH);
+                    GetDirection( newH);
 
                     //(Check if the snake meets the apple, boundary or itself)
                     //Detect when the snake hits the boundary
-                    game.DetectCollision( ref inUse, boardW, boardH, rng, app, snake, newH);
-                    if (!inUse)
-                    {
-                        snake.RemoveAt(0);
-                        foreach (Point x in snake)
-                            if (x.X == newH.X && x.Y == newH.Y)
-                            {
-                                // Death by accidental self-cannibalism.
-                                game.GameOver();
-                                break;
-                            }
-                    }
-                    game.gameUpdate( ref inUse, newDir, ref last, app, snake, tail, head, newH);
+                    game.DetectCollisionWithConsole(boardW, boardH, newH);
+                    game.DetectCollision(boardW, boardH, app, snake, newH);
+                    game.DetectItself(snake, newH);
+                    game.GameUpdate(newDir, ref last, app, snake, tail, head, newH);
                 }
             }
         }
         
-       
 
-        public void GetDirection(short newDir, Point newH)
+
+
+        public void GetDirection( Point newH)
         {
             switch (newDir)
             {

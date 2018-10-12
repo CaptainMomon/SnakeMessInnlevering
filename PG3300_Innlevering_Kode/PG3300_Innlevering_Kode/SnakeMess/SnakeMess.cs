@@ -24,16 +24,6 @@ namespace SnakeMess
             Board board = new Board();
             GameManager gameManager = new GameManager();
 
-            //bool gg = false; //gameover 
-            bool pause = false;//gamepause
-            bool inUse = false;///eatingApple
-            short newDir = 2; // 0 = up, 1 = right, 2 = down, 3 = left //new direction of the snake
-            short last = newDir;//lastdirection of the snake
-
-
-            
-            //For the apperance of the apple randomly
-            //Random rng = new Random();  //må flyttes
 
             Point app = new Point();//app=apple or food og må flyttes
 
@@ -46,9 +36,8 @@ namespace SnakeMess
             gameManager.PlaceApple(board.boardW, board.boardH,app, board.snake);
             //(should be in game controller)
             //(Get the state of the snake
-            Stopwatch t = new Stopwatch();
-            t.Start();
-            player.StateOfGame( ref pause, ref inUse, ref newDir, ref last, board.boardW, board.boardH, gameManager.rng, app, board.snake, t);
+            
+            player.StateOfGame(board.boardW, board.boardH, gameManager.rng, app, board.snake);
         }
     }
 }

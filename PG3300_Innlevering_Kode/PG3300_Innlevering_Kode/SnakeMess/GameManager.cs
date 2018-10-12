@@ -7,9 +7,9 @@ namespace SnakeMess
 {
     class GameManager { 
         public Random rng { get; set; }
+        public bool inUse = false;///eatingApple
 
-        
-        
+
         public GameManager()
         {
             rng = new Random();
@@ -35,12 +35,16 @@ namespace SnakeMess
                 }
             }
         }
-        public void DetectCollision( ref bool inUse, int boardW,int boardH, Random rng, Point app, List<Point> snake, Point newH)
+        public void DetectCollisionWithConsole(int boardW, int boardH, Point newH)
         {
             if (newH.X < 0 || newH.X >= boardW)
                 GameOver();
             else if (newH.Y < 0 || newH.Y >= boardH)
                 GameOver();
+        }
+        public void DetectCollision(int boardW,int boardH, Point app, List<Point> snake, Point newH)
+        {
+
             if (newH.X == app.X && newH.Y == app.Y)
             {
                 if (snake.Count + 1 >= boardW * boardH)
@@ -67,18 +71,27 @@ namespace SnakeMess
                 }
             }
         }
+        public void DetectItself( List<Point> snake, Point newH)
+        {
+            if (!inUse)
+            {
+                snake.RemoveAt(0);
+                foreach (Point x in snake)
+                    if (x.X == newH.X && x.Y == newH.Y)
+                    {
+                        // Death by accidental self-cannibalism.
+                        GameOver();
+                        break;
+                    }
+            }
+        }
         
         public void GameOver()
         {
             Environment.Exit(0);
         }
 
-        public Boolean PauseGame()
-        {
-            return false;
-        }
-
-        public void gameUpdate(ref bool inUse, short newDir, ref short last, Point app, List<Point> snake, Point tail, Point head, Point newH)
+        public void GameUpdate(int newDir, ref int last, Point app, List<Point> snake, Point tail, Point head, Point newH)
         {
             if (true)
             {
