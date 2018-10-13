@@ -15,37 +15,41 @@ namespace SnakeMess
             rng = new Random();
             
         }
-    
-        public void PlaceApple(int boardW, int boardH,Point app, List<Point> snake)
+
+        //Method for placing the apples/$ on the board randomly aslong as the game is running.
+        public void PlaceApple(int boardW, int boardH,Point AppleCord, List<Point> snake)
         {
+
             while (true)
             {
-                app.X = rng.Next(0,boardH); app.Y = rng.Next(0, boardH);
+                AppleCord.X = rng.Next(0,boardH); AppleCord.Y = rng.Next(0, boardH);
                 bool spot = true;//if the randomspot is same as the position of apple then break
                 foreach (Point i in snake)
-                    if (i.X == app.X && i.Y == app.Y)
+                    if (i.X == AppleCord.X && i.Y == AppleCord.Y)
                     {
                         spot = false;
                         break;
                     }
                 if (spot)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green; Console.SetCursorPosition(app.X, app.Y); Console.Write("$");
+                    Console.ForegroundColor = ConsoleColor.Green; Console.SetCursorPosition(AppleCord.X, AppleCord.Y); Console.Write("$");
                     break;
                 }
             }
         }
-        public void DetectCollisionWithConsole(int boardW, int boardH, Point newH)
+        //Method for detecting if the player hits the board walls
+        public void DetectCollisionWithConsole(int boardW, int boardH, Point newHead)
         {
-            if (newH.X < 0 || newH.X >= boardW)
+            if (newHead.X < 0 || newHead.X >= boardW)
                 GameOver();
-            else if (newH.Y < 0 || newH.Y >= boardH)
+            else if (newHead.Y < 0 || newHead.Y >= boardH)
                 GameOver();
         }
-        public void DetectCollision(int boardW,int boardH, Point app, List<Point> snake, Point newH)
+        //Method for detecting if the player hit an apple/$ or if the player/snake is to big to place any adtitional apples/$
+        public void DetectCollisionWithApple(int boardW,int boardH, Point AppleCord, List<Point> snake, Point newHead)
         {
 
-            if (newH.X == app.X && newH.Y == app.Y)
+            if (newHead.X == AppleCord.X && newHead.Y == AppleCord.Y)
             {
                 if (snake.Count + 1 >= boardW * boardH)
                     // No more room to place apples - game over.
@@ -54,10 +58,10 @@ namespace SnakeMess
                 {//check if apple is eaten
                     while (true)
                     {
-                        app.X = rng.Next(0, boardW); app.Y = rng.Next(0, boardH);
+                        AppleCord.X = rng.Next(0, boardW); AppleCord.Y = rng.Next(0, boardH);
                         bool found = false;
                         foreach (Point i in snake)
-                            if (i.X == app.X && i.Y == app.Y)
+                            if (i.X == AppleCord.X && i.Y == AppleCord.Y)
                             {
                                 found = true;
                                 break;
@@ -71,13 +75,14 @@ namespace SnakeMess
                 }
             }
         }
-        public void DetectItself( List<Point> snake, Point newH)
+        //Method for detecting if the player/snake eat itself/ hits itself.
+        public void DetectCollisonWithItself( List<Point> snake, Point newHead)
         {
             if (!inUse)
             {
                 snake.RemoveAt(0);
                 foreach (Point x in snake)
-                    if (x.X == newH.X && x.Y == newH.Y)
+                    if (x.X == newHead.X && x.Y == newHead.Y)
                     {
                         // Death by accidental self-cannibalism.
                         GameOver();
@@ -90,8 +95,8 @@ namespace SnakeMess
         {
             Environment.Exit(0);
         }
-
-        public void GameUpdate(int newDir, ref int last, Point app, List<Point> snake, Point tail, Point head, Point newH)
+        //Method describing the state of the snake/game while running(not paused)
+        public void GameUpdate(ref Direction newDirrection, ref Direction lastDirrection, Point AppleCord, List<Point> snake, Point tail, Point head, Point newHead)
         {
             if (true)
             {
@@ -103,12 +108,12 @@ namespace SnakeMess
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Green; Console.SetCursorPosition(app.X, app.Y); Console.Write("$");
+                    Console.ForegroundColor = ConsoleColor.Green; Console.SetCursorPosition(AppleCord.X, AppleCord.Y); Console.Write("$");
                     inUse = false;
                 }
-                snake.Add(newH);
-                Console.ForegroundColor = ConsoleColor.Yellow; Console.SetCursorPosition(newH.X, newH.Y); Console.Write("@");
-                last = newDir;
+                snake.Add(newHead);
+                Console.ForegroundColor = ConsoleColor.Yellow; Console.SetCursorPosition(newHead.X, newHead.Y); Console.Write("@");
+                lastDirrection = newDirrection;
             }
         }
     }

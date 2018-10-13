@@ -15,6 +15,7 @@ namespace SnakeMess
         public Board()
         {
             snake = new List<Point>();
+            //Decide the size of the game board
             boardW = Console.WindowWidth; 
             boardH = Console.WindowHeight;
             Console.Title = "Høyskolen Kristiania - SNAKE";
@@ -24,10 +25,13 @@ namespace SnakeMess
 
         public List<Point> CreateSnake()
         {            
-            //add four bodyparts initially to the apple
-            snake.Add(new Point(10, 10)); snake.Add(new Point(10, 10)); snake.Add(new Point(10, 10)); snake.Add(new Point(10, 10));
+            //add four bodyparts initially to the snake
+            snake.Add(new Point(10, 10));
+            snake.Add(new Point(10, 10));
+            snake.Add(new Point(10, 10));
+            snake.Add(new Point(10, 10));
             Console.CursorVisible = false;
-            //Draw head of the apple
+            //Draw head of the snake
             Console.ForegroundColor = ConsoleColor.Green; Console.SetCursorPosition(10, 10); Console.Write("@");
             return snake;
         }

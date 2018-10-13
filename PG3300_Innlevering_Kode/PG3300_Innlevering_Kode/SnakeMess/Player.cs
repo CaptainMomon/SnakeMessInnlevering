@@ -8,20 +8,22 @@ namespace SnakeMess
 {
     class Player
     {
-        Stopwatch t = new Stopwatch();
+        Stopwatch timer = new Stopwatch();
         GameManager game = new GameManager();
         bool pause = false;
-        int newDir = 2;
-        int last;
+        Direction newDirrection = Direction.DOWN;
+        Direction lastDirrection;
 
         
-
-        public void StateOfGame(int boardW, int boardH, Random rng, Point app, List<Point> snake)
+        public void StateOfGame(int boardW, int boardH, Random rng, Point AppleCord, List<Point> snake)
         {
-            t.Start();
-            last = newDir;
+            //the game has three states, Game Over, Game is running and game is Paused.
+            //Describe the state of the game; where the snake is and where it is going, Also if the snake hit something
+            timer.Start();
+            lastDirrection = newDirrection;
             while (true)
             {//if gameIsNotOver
+                //the different player controlls/what each button do.
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo cki = Console.ReadKey(true);
@@ -31,34 +33,35 @@ namespace SnakeMess
                         pause = !pause;
                     //(Get the direction)
                     //if uparrow key is pressed and the last direction of the snake is not down then go up 
-                    else if (cki.Key == ConsoleKey.UpArrow && last != 2)
-                        newDir = 0;
-                    else if (cki.Key == ConsoleKey.RightArrow && last != 3)
-                        newDir = 1;
-                    else if (cki.Key == ConsoleKey.DownArrow && last != 0)
-                        newDir = 2;
-                    else if (cki.Key == ConsoleKey.LeftArrow && last != 1)
-                        newDir = 3;
+                    else if (cki.Key == ConsoleKey.UpArrow && lastDirrection != Direction.DOWN)
+                        newDirrection = Direction.UP;
+                    else if (cki.Key == ConsoleKey.RightArrow && lastDirrection != Direction.LEFT)
+                        newDirrection = Direction.RIGHT;
+                    else if (cki.Key == ConsoleKey.DownArrow && lastDirrection != Direction.UP)
+                        newDirrection = Direction.DOWN;
+                    else if (cki.Key == ConsoleKey.LeftArrow && lastDirrection != Direction.RIGHT)
+                        newDirrection = Direction.LEFT;
                 }
+                //loop for while the game is running
                 if (!pause)
                 {
-                    if (t.ElapsedMilliseconds < 100)
+                    //controlls the speed of the snake/game.
+                    if (timer.ElapsedMilliseconds < 100)
                         continue;
-                    t.Restart();
+                    timer.Restart();
                     //Direction of the snake according to the input
                     Point tail = new Point(snake.First());
                     Point head = new Point(snake.Last());
-                    Point newH = new Point(head);
+                    Point newHead = new Point(head);
 
                     //(move snake)
-                    GetDirection( newH);
+                    GetDirection( newHead);
 
                     //(Check if the snake meets the apple, boundary or itself)
-                    //Detect when the snake hits the boundary
-                    game.DetectCollisionWithConsole(boardW, boardH, newH);
-                    game.DetectCollision(boardW, boardH, app, snake, newH);
-                    game.DetectItself(snake, newH);
-                    game.GameUpdate(newDir, ref last, app, snake, tail, head, newH);
+                    game.DetectCollisionWithConsole(boardW, boardH, newHead);
+                    game.DetectCollisionWithApple(boardW, boardH, AppleCord, snake, newHead);
+                    game.DetectCollisonWithItself(snake, newHead);
+                    game.GameUpdate(ref newDirrection, ref lastDirrection, AppleCord, snake, tail, head, newHead);
                 }
             }
         }
@@ -66,21 +69,21 @@ namespace SnakeMess
 
 
 
-        public void GetDirection( Point newH)
+        public void GetDirection( Point newHead)
         {
-            switch (newDir)
+            switch (newDirrection)
             {
-                case 0://Direction up
-                    newH.Y -= 1;
+                case Direction.UP://Direction up
+                    newHead.Y -= 1;
                     break;
-                case 1://Direction right
-                    newH.X += 1;
+                case Direction.RIGHT://Direction right
+                    newHead.X += 1;
                     break;
-                case 2://Diection down
-                    newH.Y += 1;
+                case Direction.DOWN://Diection down
+                    newHead.Y += 1;
                     break;
                 default://direction left
-                    newH.X -= 1;
+                    newHead.X -= 1;
                     break;
             }
         }
